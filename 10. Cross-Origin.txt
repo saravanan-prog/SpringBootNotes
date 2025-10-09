@@ -1,0 +1,67 @@
+@CrossOrigin
+============
+    - This is an essential annotation when working with CORS (Cross-Origin Resource Sharing) 
+    — especially if your frontend (like React, Angular, or Vue) is calling your Spring Boot backend API.
+
+
+1. What Is CORS?
+----------------
+    CORS (Cross-Origin Resource Sharing) is a browser security mechanism that restricts web pages from making HTTP requests to a domain different from the one that served the web page.
+
+
+    Access to fetch at 'http://localhost:8080/api/users' 
+    from origin 'http://localhost:3000' has been blocked by CORS policy
+
+
+Basic Usage - Applies to all endpoints in the controller.
+========================================================
+
+    import org.springframework.web.bind.annotation.*;
+
+    @CrossOrigin(origins = "http://localhost:3000")  // ✅ allow requests from React app
+    @RestController
+    @RequestMapping("/api/users")
+    public class UserController {
+
+        @GetMapping
+        public String getAllUsers() {
+            return "List of users";
+        }
+
+        @PostMapping
+        public String addUser() {
+            return "User added!";
+        }
+    }
+
+
+Example 2 
+---------
+    @RestController
+    @RequestMapping("/api/users")
+    public class UserController {
+
+        @CrossOrigin(origins = "http://localhost:4200")  // ✅ Only this endpoint is allowed
+        @GetMapping("/{id}")
+        public String getUser(@PathVariable Long id) {
+            return "User " + id;
+        }
+}
+
+
+ Allow All Origins (not recommended for production)
+===================================================
+
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/api/public")
+public class PublicController {
+    @GetMapping
+    public String getPublicData() {
+        return "This API is open to all origins";
+    }
+}
+
+
+
+

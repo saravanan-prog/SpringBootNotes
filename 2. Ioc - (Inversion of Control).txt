@@ -1,0 +1,19 @@
+IoC (Inversion of Control) :-
+=============================
+    - IoC is a design principle where the control of objects or portions of a program is transferred to a container or framework.
+
+    - Instead of your code creating and managing objects, the framework controls their lifecycle and dependencies.
+
+    - It inverts the traditional flow of control — hence the name.
+
+
+Why is IoC Important
+====================
+    - It loosely couples components by removing direct dependencies.
+    - Makes code more flexible, maintainable, and testable.
+    - Helps manage object creation, configuration, and wiring automatically.
+
+
+In short
+--------
+    IoC: Framework controls object creation & lifecycle.

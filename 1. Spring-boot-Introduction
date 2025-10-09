@@ -1,0 +1,29 @@
+Spring 
+=======
+    - A comprehensive Java application framework for building enterprise-grade applications.
+    - Provides 
+
+        "inversion of control (IoC) through dependency injection".
+    
+    IoC: Framework controls object creation & lifecycle.
+    DI:  Framework injects dependencies into classes.
+
+
+Spring Boot
+============
+    Spring Boot — a popular Java framework for building modern web applications and microservices quickly and easily.
+
+        1.  It’s a framework built on top of Spring to simplify configuration
+        2.  Lets you create standalone, production-ready Spring apps with minimal setup.
+        3.  Offers auto-configuration, starter dependencies, and embedded servers like Tomcat.
+        4.  Great for REST APIs, web apps, microservices, batch jobs, and more.
+
+
+Spring boot Features:-
+=======================
+    1. Auto-configuration       - Automatically configures Spring based on dependencies
+    2. Embedded server          - Runs on embedded Tomcat, Jetty, or Undertow, no need to deploy WAR files
+    3. Starter dependencies     - Pre-packaged dependencies for common tasks (spring-boot-starter-web,         spring-boot-starter-data-jpa, etc.)
+
+    4. Production-ready metrics     - Health checks, metrics, and monitoring via Actuator
+    5. Opinionated defaults         - Sensible defaults to get started quickly

@@ -1,0 +1,79 @@
+Service layer
+=============
+
+    The service layer is where the business logic lives — 
+    
+    the actual processing, calculations, decisions, and operations that happen between the controller and the data (repository or list).
+
+        Controller -> Service -> Repository (or List, DB)
+
+    @Service 
+        is a Spring annotation used to mark a class as a service layer component — the place where your business logic lives.
+
+    
+
+Example: understand code
+-------------------------
+Step 1: Student Model
+-----------------------
+        public class Student {
+            private int id;
+            private String name;
+
+            // Constructor, Getters, Setters
+        }
+
+Step 2: Service Class
+----------------------
+        import org.springframework.stereotype.Service;
+        import java.util.ArrayList;
+        import java.util.List;
+
+        @Service  // 🔹 Marks this class as a Spring-managed service
+        public class StudentService {
+
+            private List<Student> students = new ArrayList<>();
+
+            public StudentService() {
+                students.add(new Student(1, "Aarav"));
+                students.add(new Student(2, "Priya"));
+            }
+
+            public List<Student> getAllStudents() {
+                return students;
+            }
+
+            public void addStudent(Student student) {
+                students.add(student);
+            }
+        }
+
+Step 3:
+------
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/students")
+public class StudentController {
+
+    @Autowired
+    private StudentService studentService;  // ✅ Service injected here
+
+    @GetMapping
+    public List<Student> getStudents() {
+        return studentService.getAllStudents();
+    }
+
+    @PostMapping
+    public String addStudent(@RequestBody Student student) {
+        studentService.addStudent(student);
+        return "Student added!";
+    }
+}
+
+
+

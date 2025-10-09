@@ -1,0 +1,25 @@
+Common Spring Application Layers
+=================================
+
+    Controller Layer   (Web/API Layer)
+    Service Layer      (Business Logic)
+    Repository Layer   (Data Access)
+    Model Layer        (Entities/DTOs)
+
+
+
+Project Structure
+=================
+
+    com.example.demo
+        ├── model
+        │   └── User.java
+        ├── repository
+        │   └── UserRepository.java
+        ├── controller
+        │   └── UserController.java
+        ├── service
+        │   └── UserService.java
+        └── DemoApplication.java
+
+    

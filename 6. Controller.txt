@@ -1,0 +1,178 @@
+1. @RestController
+   ===============
+    “This class will handle HTTP requests and send back data (usually JSON or plain text).”
+    @RestController = @Controller + @ResponseBody
+
+2. @RequestMapping
+   ===============
+    Basically, it tells Spring which URL path a method (or a whole controller) should respond to.
+
+    Example : @RequestMapping("/api/v1/")
+
+3. HTTP Method Annotations
+
+
+|--------------------------------------------------------------------------------------------------------------------------------------------------------
+| Annotation       | HTTP Method | Purpose                 | Request Body Required? | Typical Use Case                   | Idempotent? (Safe to repeat) |
+| ---------------- | ----------- | ----------------------- | ---------------------- | ---------------------------------- | ---------------------------- |
+| `@GetMapping`    | GET         | Retrieve data           | No                     | Get a list or a single resource    | Yes                          |
+| `@PostMapping`   | POST        | Create new resource     | Yes                    | Add new data                       | No                           |
+| `@PutMapping`    | PUT         | Replace entire resource | Yes                    | Update or replace an existing item | Yes                          |
+| `@DeleteMapping` | DELETE      | Delete resource         | No                     | Remove data                        | Yes                          
+| `@PathMapping`   | PATCH       |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 2. Parameter Annotations
+
+        -------------------------------------------------------------------------------
+        | Annotation       | Used For                   | Example Use                 |
+        | ---------------- | -------------------------- | --------------------------- |
+        | `@PathVariable`  | Extract from URL path      | `/users/{id}`               |
+        | `@RequestParam`  | Extract from query string  | `/users?active=true`        |
+        | `@RequestBody`   | Deserialize JSON from body | POST/PUT with JSON          |
+        | `@RequestHeader` | Access HTTP headers        | Authorization, Content-Type |
+        |------------------------------------------------------------------------------ 
+
+
+
+Example Code:
+------------
+@RestController
+@RequestMapping("/api/v1/")
+public class GetMappingController {
+
+    List<StudentModel> studentList = new ArrayList<>();
+
+    @GetMapping("allProducts")
+    public String getAllData(){
+        return "All Data will comming soon...";
+    }
+
+    @GetMapping("product/{id:[0-9]+}")
+    public String getIdbasedSearchProduct(
+            @PathVariable long id
+    ){
+
+        return "Your Prodjct id is " + id;
+    }
+    @GetMapping("product/{productName:[a-zA-Z]+}")
+    public String searchByProductName(
+            @PathVariable String productName
+    ){
+
+        return "Your Searching Productname is = " + productName;
+    }
+
+    @GetMapping("product/{id}/{productName}")
+    public String getIDandNamebasedSearch(
+            @PathVariable String id,
+            @PathVariable  String productName
+    ){
+
+        return "Product Id is = "+id+" productName = " +  productName;
+    }
+
+    @GetMapping("searchProduct")
+    public String searchProductwithQueryParam(
+            @RequestParam("id") long productId,
+            @RequestParam("pname")  String productName
+    ){
+
+        return "Query Param Id = " +productId + "Query Param product Name =" + productName;
+    }
+
+    @PostMapping("connectionChecking")
+    public String checkingPostMethod(){
+        return this.psobj.checkPostmethodResponse();
+    }
+
+    @PostMapping("addProduct")
+    public String addProduct(
+            @RequestBody ProductModel product
+    ){
+        return this.psobj.addProductResponse(product);
+    }
+
+    
+
+
+    @PutMapping("/{id}")
+    public List<StudentModel> updateStudent(@PathVariable int id, @RequestBody Student updatedStudent) {
+
+        studentList.stream()
+                .filter(student -> student.getId() == id)
+                .forEach(student -> {
+                    student.setName(updatedStudent.getName());
+                    student.setGrade(updatedStudent.getGrade());
+                    updated.set(true);
+                });
+
+        return student;
+    }
+
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> updateStaffPartial(@PathVariable int id, @RequestBody StaffModel staffPayload) {
+        StaffModel existingStaff = staffService.getStaffById(id);
+
+        if (existingStaff == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Only update fields if they are not null
+        if (staffPayload.getStaffName() != null) {
+            existingStaff.setStaffName(staffPayload.getStaffName());
+        }
+        if (staffPayload.getStaffAddress() != null) {
+            existingStaff.setStaffAddress(staffPayload.getStaffAddress());
+        }
+
+        return ResponseEntity.ok("Staff updated successfully!");
+    }
+
+
+
+
+
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteStudent(@PathVariable int id) {
+        boolean removed = studentList.removeIf(student -> student.getId() == id);
+
+        if (removed) {
+            return ResponseEntity.ok("Student deleted successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Student with ID " + id + " not found.");
+        }
+    }
+
+}
+
+
+Service files
+-------------
+
+@Service
+public class StaffService {
+
+    private List<StaffModel> staffList = new ArrayList<>();
+
+    public StaffService() {
+        staffList.add(new StaffModel(1, "Raja", "Chennai"));
+        staffList.add(new StaffModel(2, "Kamal", "Bangalore"));
+    }
+
+    public List<StaffModel> getAllStaff() {
+        return staffList;
+    }
+
+    public StaffModel getStaffById(int id) {
+        return staffList.stream()
+                .filter(s -> s.getStaffId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+}

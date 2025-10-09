@@ -1,0 +1,24 @@
+What is Dependency Injection (DI)
+----------------------------------
+
+   - DI is a technique where one object supplies the dependencies (services or components) another object needs.
+
+   - Instead of a class creating or looking up its dependencies, they are injected from outside, typically by a framework like Spring.
+
+   - This reduces tight coupling and makes code easier to maintain and test.
+
+
+
+Types of Dependency Injection
+-----------------------------
+    1. Constructor Injection  -  Dependencies are provided through the class constructor.
+    2. Setter Injection       -  Dependencies are set through setter methods after object creation.
+    3. Field Injection        -  Dependencies are injected directly into fields.
+
+
+
+In short
+========
+
+    IoC: Framework controls object creation & lifecycle.
+    DI:  Framework injects dependencies into classes.
