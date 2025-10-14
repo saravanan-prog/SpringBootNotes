@@ -1,0 +1,72 @@
+✅ Essential Properties (Must Have for DB Connection)
+------------------------------------------------------
+
+
+spring.datasource.url=jdbc:mysql://localhost:3306/[dbname]
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.driver-class-name = com.mysql.cj.jdbc.Driver
+
+
+|--------------------------------------------------------------------------------------------------------------
+| Property                              | Purpose                                                              |
+| ------------------------------------- | -------------------------------------------------------------------- |
+| `spring.datasource.url`               | JDBC connection string — tells Spring where your database is located |
+| `spring.datasource.username`          | Database username                                                    |
+| `spring.datasource.password`          | Database password                                                    |
+| `spring.datasource.driver-class-name` | JDBC driver for MySQL (`com.mysql.cj.jdbc.Driver` for MySQL 8+)      |
+|---------------------------------------------------------------------------------------------------------------
+
+What is Hibernate?
+====================
+
+Hibernate is a powerful Java ORM (Object-Relational Mapping) framework that implements the JPA specification.
+
+    It maps Java objects to database tables.
+    It generates SQL queries automatically.
+    It manages the database interactions for you.
+    It provides additional features beyond standard JPA.
+
+
+JPA Java Persistence API
+=========================
+
+    JPA (Java Persistence API) is a Java specification for managing relational data in Java applications.
+    It defines a standard set of interfaces and annotations for working with databases.
+    It lets you map Java objects (entities) to database tables.
+    JPA standardizes the way you perform CRUD operations, queries, and transactions.
+
+JPA vs Hibernate
+==================
+
+    JPA is a specification/interface.
+    Hibernate is one of the popular implementations of JPA.
+    When you use Spring Data JPA, Hibernate is the default underlying provider.
+
+
+⚙️ Recommended Properties (for Hibernate/JPA to Work Properly)
+---------------------------------------------------------------
+
+    spring.jpa.hibernate.ddl-auto = update
+    spring.jpa.show-sql=true
+
+
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Property                               | Purpose                                                                                                                        |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `spring.jpa.hibernate.ddl-auto=update` | Tells Hibernate to **create or update** tables automatically from your `@Entity` classes. Without this, tables aren’t created! |
+| `spring.jpa.show-sql=true`             | Logs the SQL queries Hibernate runs (useful for debugging)                                                                     |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+|-------------------------------------------------------------------------
+| Annotation                 | Purpose                                    |
+| -------------------------- | ------------------------------------------ |
+| `@Entity`                  | Marks a class as a database entity         |
+| `@Table`                   | Specifies table name and details           |
+| `@Id`                      | Marks the primary key field                |
+| `@GeneratedValue`          | Specifies how the primary key is generated |
+| `@Column`                  | Customizes column mapping                  |
+| `@OneToMany`, `@ManyToOne` | Define relationships                       |
+| `@Transient`               | Marks fields that should NOT be persisted  |
+|--------------------------------------------------------------------------                                                                         |
