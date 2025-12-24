@@ -1,0 +1,39 @@
+Lombok
+==========
+    helps to automatically generate getter and setter Constructors
+
+    @Data                   - common 
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter @Setter
+
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.34</version> <!-- or latest -->
+    <scope>provided</scope>
+</dependency>
+
+
+
+Settings
+--------
+1. Maven and clean and Compiler
+
+  mvn clean compile
+
+
+
+
+✅ 2. Enable Annotation Processing in your IDE
+
+
+        If you’re using IntelliJ IDEA
+
+        Go to File → Settings → Build, Execution, Deployment → Compiler → Annotation Processors
+
+        Tick ✅ “Enable annotation processing”
+
+        Click Apply → OK
+
+        Then go to File → Invalidate Caches / Restart → Invalidate and Restart
